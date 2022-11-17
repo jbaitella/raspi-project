@@ -1,9 +1,8 @@
 import pygame
-#from Programms.player import Player
 import tkinter
 from tkinter import messagebox
 import grove_gesture_sensor
-import time
+
 
 from Programms.enemies import *
 from Programms.player import Player
@@ -35,26 +34,26 @@ class Game(object):
         for i, row in enumerate(enviroment()):
             for j, item in enumerate(row):
                 if item == 1: 
-                    self.horizontalBlocks.add(Block(j*32+8,i*32+8,Const.BLACK,16,16))
+                    self.horizontalBlocks.add(Block(j * 32 + 8, i * 32 + 8, Const.BLACK, 16, 16))
                 elif item == 2:
-                    self.verticalBlocks.add(Block(j*32 + 8, i*32 + 8, Const.BLACK, 16, 16))
+                    self.verticalBlocks.add(Block(j * 32 + 8, i * 32 + 8, Const.BLACK, 16, 16))
 
         # Create the enemies
         self.enemies = pygame.sprite.Group()
-        self.enemies.add(Slime(288,96,0,2))
-        self.enemies.add(Slime(288,320,0,-2))
-        self.enemies.add(Slime(544,128,0,2))
-        self.enemies.add(Slime(32,224,0,2))
-        self.enemies.add(Slime(160,64,2,0))
-        self.enemies.add(Slime(448,64,-2,0))
-        self.enemies.add(Slime(640,448,2,0))
-        self.enemies.add(Slime(448,320,2,0))
+        self.enemies.add(Slime(288, 96, 0, 2))
+        self.enemies.add(Slime(288, 320, 0, -2))
+        self.enemies.add(Slime(544, 128, 0, 2))
+        self.enemies.add(Slime(32, 224, 0, 2))
+        self.enemies.add(Slime(160, 64, 2, 0))
+        self.enemies.add(Slime(448, 64, -2,0))
+        self.enemies.add(Slime(640, 448, 2, 0))
+        self.enemies.add(Slime(448, 320, 2, 0))
 
         # Add the dots inside the game
         for i, row in enumerate(enviroment()):
             for j, item in enumerate(row):
                 if item != 0:
-                    self.dotsGroup.add(Ellipse(j*32+12,i*32+12,Const.WHITE,8,8))
+                    self.dotsGroup.add(Ellipse(j * 32 + 12, i * 32 + 12, Const.WHITE, 8, 8))
 
         # Load the sound effects
         self.pacmanSound = pygame.mixer.Sound("Sounds/pacmanSound.ogg")
@@ -79,7 +78,7 @@ class Game(object):
                         self.__init__()
                         self.gameOver = False
 
-                    elif self.menu.state == 1:
+                    if self.menu.state == 1:
                         # --- ABOUT ------
                         self.about = True
 
@@ -108,7 +107,6 @@ class Game(object):
                 self.gameOver = True
                 self.about = False
                 
-            time.sleep(1)
         return False
 
     def runLogic(self) -> None:
@@ -164,14 +162,14 @@ class Game(object):
         # --- Go ahead and update the screen with what we've drawn.
         pygame.display.flip()
 
-    def displayMessage(self, screen, message, color=(255,0,0)):
+    def displayMessage(self, screen, message, color=(255, 0, 0)):
         label = self.font.render(message, True, color)
         # Get the width and height of the label
         width = label.get_width()
         height = label.get_height()
         # Determine the position of the label
-        posX = (Const.SCREEN_WIDTH/2) - (width/2)
-        posY = (Const.SCREEN_HEIGHT/2) - (height/2)
+        posX = (Const.SCREEN_WIDTH / 2) - (width / 2)
+        posY = (Const.SCREEN_HEIGHT / 2) - (height / 2)
         # Draw the label onto the screen
         screen.blit(label, (posX, posY))
 
@@ -186,16 +184,16 @@ class Menu(object):
     def displayFrame(self, screen):
         for index, item in enumerate(self.items):
             if self.state == index:
-                label = self.font.render(item, True,self.selectColor)
+                label = self.font.render(item, True, self.selectColor)
             else:
-                label = self.font.render(item,True,self.fontColor)
+                label = self.font.render(item, True, self.fontColor)
             width = label.get_width()
             height = label.get_height()
-            posX = (Const.SCREEN_WIDTH /2) - (width /2)
+            posX = (Const.SCREEN_WIDTH / 2) - (width / 2)
             # t_h: total height of text block
             t_h = len(self.items) * height
-            posY = (Const.SCREEN_HEIGHT /2) - (t_h /2) + (index * height)
-            screen.blit(label,(posX,posY))
+            posY = (Const.SCREEN_HEIGHT / 2) - (t_h / 2) + (index * height)
+            screen.blit(label, (posX, posY))
 
     def event_handler(self, gest: int) -> None:
         if gest == g.UP:

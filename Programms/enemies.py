@@ -4,32 +4,32 @@ import random
 import Programms.constants as Const
 
 class Block(pygame.sprite.Sprite):
-    def __init__(self,x,y,color,width,height):
+    def __init__(self, x, y, color, width, height):
         # Call the parent class (Sprite) constructor
         pygame.sprite.Sprite.__init__(self)
         # Set the background color and set it to be transparent
-        self.image = pygame.Surface([width,height])
+        self.image = pygame.Surface([width, height])
         self.image.fill(color)
         self.rect = self.image.get_rect()
-        self.rect.topleft = (x,y)
+        self.rect.topleft = (x, y)
 
 
 class Ellipse(pygame.sprite.Sprite):
-    def __init__(self,x,y,color,width,height):
+    def __init__(self, x, y, color, width, height):
         # Call the parent class (Sprite) constructor
         pygame.sprite.Sprite.__init__(self)
         # Set the background color and set it to be transparent
-        self.image = pygame.Surface([width,height])
+        self.image = pygame.Surface([width, height])
         self.image.fill(Const.BLACK)
         self.image.set_colorkey(Const.BLACK)
         # Draw the ellipse
-        pygame.draw.ellipse(self.image,color,[0,0,width,height])
+        pygame.draw.ellipse(self.image, color, [0, 0, width, height])
         self.rect = self.image.get_rect()
-        self.rect.topleft = (x,y)
+        self.rect.topleft = (x, y)
 
         
 class Slime(pygame.sprite.Sprite):
-    def __init__(self,x,y,change_x,change_y):
+    def __init__(self, x, y, change_x, change_y):
         # Call the parent class (Sprite) constructor
         pygame.sprite.Sprite.__init__(self)
         # Set the direction of the slime
@@ -38,7 +38,7 @@ class Slime(pygame.sprite.Sprite):
         # Load image
         self.image = pygame.image.load("Pictures/slime.png").convert_alpha()
         self.rect = self.image.get_rect()
-        self.rect.topleft = (x,y)
+        self.rect.topleft = (x, y)
  
 
     def update(self,horizontal_blocks,vertical_blocks):
@@ -54,7 +54,7 @@ class Slime(pygame.sprite.Sprite):
             self.rect.bottom = 0
 
         if self.rect.topleft in self.get_intersection_position():
-            direction = random.choice(("left","right","up","down"))
+            direction = random.choice(("left", "right", "up", "down"))
             if direction == "left" and self.change_x == 0:
                 self.change_x = -2
                 self.change_y = 0
@@ -71,10 +71,10 @@ class Slime(pygame.sprite.Sprite):
 
     def get_intersection_position(self):
         items = []
-        for i,row in enumerate(enviroment()):
-            for j,item in enumerate(row):
+        for i, row in enumerate(enviroment()):
+            for j, item in enumerate(row):
                 if item == 3:
-                    items.append((j*32,i*32))
+                    items.append((j * 32, i * 32))
 
         return items
     
@@ -102,11 +102,12 @@ def enviroment():
     return grid
 
 def drawEnviroment(screen):
-    for i,row in enumerate(enviroment()):
+    for i, row in enumerate(enviroment()):
         for j,item in enumerate(row):
             if item == 1:
-                pygame.draw.line(screen, Const.BLUE, [j*32, i*32], [j*32+32,i*32], 3)
-                pygame.draw.line(screen, Const.BLUE, [j*32, i*32+32], [j*32+32,i*32+32], 3)
+                pygame.draw.line(screen, Const.BLUE, [j * 32, i * 32], [j * 32 + 32, i * 32], 3)
+                pygame.draw.line(screen, Const.BLUE, [j * 32, i * 32 + 32], [j * 32 + 32, i * 32 + 32], 3)
+
             elif item == 2:
-                pygame.draw.line(screen, Const.BLUE, [j*32, i*32], [j*32,i*32+32], 3)
-                pygame.draw.line(screen, Const.BLUE, [j*32+32, i*32], [j*32+32,i*32+32], 3)
+                pygame.draw.line(screen, Const.BLUE, [j * 32, i * 32], [j * 32, i * 32 + 32], 3)
+                pygame.draw.line(screen, Const.BLUE, [j * 32 + 32, i * 32], [j * 32 + 32 ,i * 32 + 32], 3)
