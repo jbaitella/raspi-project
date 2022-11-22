@@ -1,2 +1,4 @@
 # raspi-project
-Hallo
+Idee & Aufbau: 
+Was an welchem Anschluss... 
+
