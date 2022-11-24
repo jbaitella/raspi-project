@@ -9,7 +9,7 @@ Material:
 - Grove Gesture Sensor
 - evt. ein Display
 - Kopfhörer Bluetooth/Kabel 
-- 
+
 
 Ablauf um Spiel zu starten: 
 1. Display am Raspberry pi anschliessen 
@@ -24,5 +24,5 @@ Ziel des Spieles:
 Als PacMan (der Gelbe Kreis) möglichst viele Punkte im Spiel zu fressen und dabei nicht von den roten Montstern berührt zu werden. 
 Das Spiel ist vorbei, sobald PacMan von einem Monser gefressen wird .
 
-Das Grundgerüst des Spieles habe ich von einer Website: https://itsourcecode.com/free-projects/python-projects/ 
+Das Grundgerüst des Spieles habe ich von einer Website: https://itsourcecode.com/free-projects/python-projects/pacman-in-python-code/
 Diesen Code habe ich versucht auf den Gesture Sensor anzupassen und zu vereinfachern. 
