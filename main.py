@@ -1,20 +1,8 @@
 import pygame
-
 from Programms.game import Game
 import Programms.constants as Const
 
 import time
-
-"""
-TODO: Code lesen und verstehen
-Überall schönheitsabstände einfügen
-Variabel namen nach Python Standard bennen (z.B. kein _ wenn der Namen kleingeschrieben wird)
-bei allen funktionen die Parameter definieren und dire Rückgabe werte definieren
-Unnötige Komentare entfernen
-Kommentare hinzufügen
-main.py vereinfachen
-imports ordnen und auf import wechseln
-"""
 
 def main():
     pygame.init()

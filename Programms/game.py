@@ -17,9 +17,11 @@ class Game(object):
         self.font = pygame.font.Font(None, 40)
         self.about = False
         self.gameOver = True
+
         # Score auf Null setzen 
         self.score = 0
         self.font = pygame.font.Font(None, 35)
+        
         # Erstellen des Menu, Players, Blöcke, Umfeld 
         self.menu = Menu(("Start", "About", "Exit"), fontColor = Const.WHITE, font_size = 80)
         self.player = Player(32, 128, "Pictures/player.png")
@@ -36,14 +38,14 @@ class Game(object):
 
         # Monster kreiren 
         self.enemies = pygame.sprite.Group()
-        self.enemies.add(Slime(288, 96, 0, 2))
-        self.enemies.add(Slime(288, 320, 0, -2))
-        self.enemies.add(Slime(544, 128, 0, 2))
-        self.enemies.add(Slime(32, 224, 0, 2))
-        self.enemies.add(Slime(160, 64, 2, 0))
-        self.enemies.add(Slime(448, 64, -2,0))
-        self.enemies.add(Slime(640, 448, 2, 0))
-        self.enemies.add(Slime(448, 320, 2, 0))
+        self.enemies.add(Slime (288, 96, 0, 2))
+        self.enemies.add(Slime (288, 320, 0, -2))
+        self.enemies.add(Slime (544, 128, 0, 2))
+        self.enemies.add(Slime (32, 224, 0, 2))
+        self.enemies.add(Slime (160, 64, 2, 0))
+        self.enemies.add(Slime (448, 64, -2,0))
+        self.enemies.add(Slime (640, 448, 2, 0))
+        self.enemies.add(Slime (448, 320, 2, 0))
 
         # Punkte hinzufügen 
         for i, row in enumerate(enviroment()):
@@ -66,24 +68,23 @@ class Game(object):
             return True
 
         if gest != 0:
-            #self.menu.event_handler(gest)
             if gest == g.FORWARD:
+
                 if self.gameOver and not self.about:
+                    #Start
                     if self.menu.state == 0:
-                        # ---- START ------
                         self.__init__()
                         self.gameOver = False
 
+                    #About
                     if self.menu.state == 1:
-                        # --- ABOUT ------
                         self.about = True
 
+                    #Exit
                     elif self.menu.state == 2:
-                        # --- EXIT -------
-                        # User clicked exit
                         return True
-                    
-    
+
+            #Bewegugn zu Geste Hinzufügen 
             elif gest == g.RIGHT:
                 self.player.move_right()
                 print ("Right")
@@ -95,19 +96,20 @@ class Game(object):
             elif gest == g.UP:
                 self.player.move_up()
                 print ("Up")
+                
+                #Menu mit Gesten Steuern
                 self.menu.state -= 1
 
             elif gest == g.DOWN:
                 self.player.move_down()
                 print ("Down")
-                self.menu.state += 1 
 
-            elif len(event) > 0 and event[0].key == pygame.K_ESCAPE:
-                self.gameOver = True
-                self.about = False
+                #Menu mit Gesten Steuern
+                self.menu.state += 1 
                 
         return False
 
+#Defintionen um das Spiel zu Starten => werden alle im Main.py abgerufen 
     def runLogic(self) -> None:
         if not self.gameOver:
             self.player.update(self.horizontalBlocks, self.verticalBlocks)
@@ -125,12 +127,10 @@ class Game(object):
 
             self.gameOver = self.player.gameOver
             self.enemies.update(self.horizontalBlocks, self.verticalBlocks)
-
-           # tkMessageBox.showinfo("GAME OVER!","Final Score = "+(str)(GAME.score)) 
               
     def displayFrame(self, screen: pygame.Surface) -> None:
         screen.fill(Const.BLACK)
-        # --- Drawing code should go here
+
         if self.gameOver:
             if self.about:
                 self.displayMessage(screen, "Try to control Pacman with Gestures! Good Luck!")
@@ -138,20 +138,15 @@ class Game(object):
                 self.menu.displayFrame(screen)
 
         else:
-            # --- Draw the game here ---
             self.horizontalBlocks.draw(screen)
             self.verticalBlocks.draw(screen)
             drawEnviroment(screen)
             self.dotsGroup.draw(screen)
             self.enemies.draw(screen)
             screen.blit(self.player.image, self.player.rect)
-            #text=self.font.render("Score: "+(str)(self.score), 1,self.RED)
-            #screen.blit(text, (30, 650))
-            # Render the text for the score
             text = self.font.render("Your score: " + str(self.score), True, Const.GREEN)
-            # Put the text on the screen
             screen.blit(text, [120, 20])
-        # --- Go ahead and update the screen with what we've drawn.
+        
         pygame.display.flip()
 
     def displayMessage(self, screen, message, color = (255, 0, 0)):
@@ -186,13 +181,10 @@ class Menu(object):
 
     def event_handler(self, gest: int) -> None:
         if gest == g.UP:
-            if self.state > 0:
+            if self.state > 1:
                 self.state -= 1
-            if self.state == 0:
-                self.state =2
-
+        
         elif gest == g.DOWN:
             if self.state < len(self.items) - 1:
                 self.state += 1
-            else: 
-                self.state = 1 
+                

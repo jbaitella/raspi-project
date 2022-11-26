@@ -14,13 +14,10 @@ class Block(pygame.sprite.Sprite):
 
 class Ellipse(pygame.sprite.Sprite):
     def __init__(self, x, y, color, width, height):
-        # Call the parent class (Sprite) constructor
         pygame.sprite.Sprite.__init__(self)
-        # Set the background color and set it to be transparent
         self.image = pygame.Surface([width, height])
         self.image.fill(Const.BLACK)
         self.image.set_colorkey(Const.BLACK)
-        # Draw the ellipse
         pygame.draw.ellipse(self.image, color, [0, 0, width, height])
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
@@ -28,12 +25,9 @@ class Ellipse(pygame.sprite.Sprite):
         
 class Slime(pygame.sprite.Sprite):
     def __init__(self, x, y, change_x, change_y):
-        # Call the parent class (Sprite) constructor
         pygame.sprite.Sprite.__init__(self)
-        # Set the direction of the slime
         self.change_x = change_x
         self.change_y = change_y
-        # Load image
         self.image = pygame.image.load("Pictures/slime.png").convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
@@ -42,26 +36,35 @@ class Slime(pygame.sprite.Sprite):
     def update(self,horizontal_blocks,vertical_blocks):
         self.rect.x += self.change_x
         self.rect.y += self.change_y
+
         if self.rect.right < 0:
             self.rect.left = Const.SCREEN_WIDTH
+
         elif self.rect.left > Const.SCREEN_WIDTH:
             self.rect.right = 0
+
         if self.rect.bottom < 0:
             self.rect.top = Const.SCREEN_HEIGHT
+
         elif self.rect.top > Const.SCREEN_HEIGHT:
             self.rect.bottom = 0
 
+        #Bewegungen des PacMans
         if self.rect.topleft in self.get_intersection_position():
             direction = random.choice(("left", "right", "up", "down"))
+
             if direction == "left" and self.change_x == 0:
                 self.change_x = -2
                 self.change_y = 0
+
             elif direction == "right" and self.change_x == 0:
                 self.change_x = 2
                 self.change_y = 0
+
             elif direction == "up" and self.change_y == 0:
                 self.change_x = 0
                 self.change_y = -2
+
             elif direction == "down" and self.change_y == 0:
                 self.change_x = 0
                 self.change_y = 2
@@ -76,7 +79,7 @@ class Slime(pygame.sprite.Sprite):
 
         return items
     
-        
+ #Spielfeld Linien       
 def enviroment():
     grid = ((0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,2,0),
             (0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,2,0),
@@ -99,6 +102,7 @@ def enviroment():
 
     return grid
 
+#Zahlen definieren, was sie für Linien haben: Wie sich Pacman bewegen kann
 def drawEnviroment(screen):
     for i, row in enumerate(enviroment()):
         for j,item in enumerate(row):
