@@ -17,20 +17,16 @@ class Game(object):
         self.font = pygame.font.Font(None, 40)
         self.about = False
         self.gameOver = True
-        # Create the variable for the score
+        # Score auf Null setzen 
         self.score = 0
-        # Create the font for displaying the score on the screen
         self.font = pygame.font.Font(None, 35)
-        # Create the menu of the game
+        # Erstellen des Menu, Players, Blöcke, Umfeld 
         self.menu = Menu(("Start", "About", "Exit"), fontColor = Const.WHITE, font_size = 80)
-        # Create the player 
         self.player = Player(32, 128, "Pictures/player.png")
-        # Create the blocks that will set the paths where the player can go
         self.horizontalBlocks = pygame.sprite.Group()
         self.verticalBlocks = pygame.sprite.Group()
-        # Create a group for the dots on the screen
         self.dotsGroup = pygame.sprite.Group()
-        # Set the enviroment:
+ 
         for i, row in enumerate(enviroment()):
             for j, item in enumerate(row):
                 if item == 1: 
@@ -38,7 +34,7 @@ class Game(object):
                 elif item == 2:
                     self.verticalBlocks.add(Block(j * 32 + 8, i * 32 + 8, Const.BLACK, 16, 16))
 
-        # Create the enemies
+        # Monster kreiren 
         self.enemies = pygame.sprite.Group()
         self.enemies.add(Slime(288, 96, 0, 2))
         self.enemies.add(Slime(288, 320, 0, -2))
@@ -49,13 +45,13 @@ class Game(object):
         self.enemies.add(Slime(640, 448, 2, 0))
         self.enemies.add(Slime(448, 320, 2, 0))
 
-        # Add the dots inside the game
+        # Punkte hinzufügen 
         for i, row in enumerate(enviroment()):
             for j, item in enumerate(row):
                 if item != 0:
                     self.dotsGroup.add(Ellipse(j * 32 + 12, i * 32 + 12, Const.WHITE, 8, 8))
 
-        # Load the sound effects
+        # Sounds laden
         self.pacmanSound = pygame.mixer.Sound("Sounds/pacmanSound.ogg")
         self.gameOverSound = pygame.mixer.Sound("Sounds/gameOverSound.ogg")
 
@@ -63,10 +59,10 @@ class Game(object):
         gest = g.return_gesture()
         if gest in [2, 7, 8, 9]: 
             gest = 0
-
         print("Gesture:", gest)
-        event = pygame.event.get() #this is a List
-        if len(event) > 0 and event[0].type == pygame.QUIT: # If user clicked close
+
+        event = pygame.event.get()
+        if len(event) > 0 and event[0].type == pygame.QUIT: 
             return True
 
         if gest != 0:
@@ -86,6 +82,7 @@ class Game(object):
                         # --- EXIT -------
                         # User clicked exit
                         return True
+                    
     
             elif gest == g.RIGHT:
                 self.player.move_right()
@@ -98,10 +95,12 @@ class Game(object):
             elif gest == g.UP:
                 self.player.move_up()
                 print ("Up")
+                self.menu.state -= 1
 
             elif gest == g.DOWN:
                 self.player.move_down()
                 print ("Down")
+                self.menu.state += 1 
 
             elif len(event) > 0 and event[0].key == pygame.K_ESCAPE:
                 self.gameOver = True
@@ -113,10 +112,8 @@ class Game(object):
         if not self.gameOver:
             self.player.update(self.horizontalBlocks, self.verticalBlocks)
             block_hit_list = pygame.sprite.spritecollide(self.player, self.dotsGroup, True)
-            # When the block_hit_list contains one sprite that means that player hit a dot
 
             if len(block_hit_list) > 0:
-                # Here will be the sound effect
                 self.pacmanSound.play()
                 self.score += 1
 
@@ -128,20 +125,15 @@ class Game(object):
 
             self.gameOver = self.player.gameOver
             self.enemies.update(self.horizontalBlocks, self.verticalBlocks)
+
            # tkMessageBox.showinfo("GAME OVER!","Final Score = "+(str)(GAME.score)) 
               
     def displayFrame(self, screen: pygame.Surface) -> None:
-        # First, clear the screen to white. Don't put other drawing commands
         screen.fill(Const.BLACK)
         # --- Drawing code should go here
         if self.gameOver:
             if self.about:
-                self.displayMessage(screen, "It is an arcade Game, changed by Julia Baitella")
-                #"a maze containing various dots,\n"
-                #known as Pac-Dots, and four ghosts.\n"
-                #"The four ghosts roam the maze, trying to kill Pac-Man.\n"
-                #"If any of the ghosts hit Pac-Man, he loses a life;\n"
-                #"the game is over.\n")
+                self.displayMessage(screen, "Try to control Pacman with Gestures! Good Luck!")
             else:
                 self.menu.displayFrame(screen)
 
@@ -162,15 +154,12 @@ class Game(object):
         # --- Go ahead and update the screen with what we've drawn.
         pygame.display.flip()
 
-    def displayMessage(self, screen, message, color=(255, 0, 0)):
+    def displayMessage(self, screen, message, color = (255, 0, 0)):
         label = self.font.render(message, True, color)
-        # Get the width and height of the label
         width = label.get_width()
         height = label.get_height()
-        # Determine the position of the label
         posX = (Const.SCREEN_WIDTH / 2) - (width / 2)
         posY = (Const.SCREEN_HEIGHT / 2) - (height / 2)
-        # Draw the label onto the screen
         screen.blit(label, (posX, posY))
 
 class Menu(object):
@@ -187,10 +176,10 @@ class Menu(object):
                 label = self.font.render(item, True, self.selectColor)
             else:
                 label = self.font.render(item, True, self.fontColor)
+
             width = label.get_width()
             height = label.get_height()
             posX = (Const.SCREEN_WIDTH / 2) - (width / 2)
-            # t_h: total height of text block
             t_h = len(self.items) * height
             posY = (Const.SCREEN_HEIGHT / 2) - (t_h / 2) + (index * height)
             screen.blit(label, (posX, posY))
@@ -199,7 +188,11 @@ class Menu(object):
         if gest == g.UP:
             if self.state > 0:
                 self.state -= 1
+            if self.state == 0:
+                self.state =2
 
         elif gest == g.DOWN:
             if self.state < len(self.items) - 1:
                 self.state += 1
+            else: 
+                self.state = 1 
