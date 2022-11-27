@@ -12,8 +12,9 @@ Material:
 - evt. Kopfhörer mit Kabel
 
 Ziel des Spieles: 
-Als PacMan (den Gelben Kreis) möglichst viele Punkte im Spiel zu fressen und dabei nicht von den roten "Montstern" berührt zu werden. Der Score wird dabei während dem Spiel links Oben angezeigt. 
-Das Spiel ist vorbei, sobald PacMan von einem Monser gefressen (berührt) wird, sobald das passiert explodiert PacMan und man gelangt zurück zum Menu.
+
+Als PacMan (den gelben Kreis) möglichst viele Punkte im Spiel zu fressen und dabei nicht von den roten "Monstern" berührt zu werden. Der Score wird dabei während dem Spiel links oben angezeigt. 
+Das Spiel ist vorbei, sobald PacMan von einem Monster gefressen (berührt) wird, sobald das passiert explodiert PacMan und man gelangt zurück zum Menu.
 
 Ablauf um Spiel zu starten: 
 1. Display am Raspberry Pi anschliessen &  evt. Kopfhörer anstecken
@@ -23,12 +24,10 @@ Ablauf um Spiel zu starten:
 3. Grove Gesture Sensor so Ausrichten, das "INT" oben links in der Ecke steht
 4. Spiel laufen lassen: main.py starten => Fenster wird geöffnet mit START/ABOUT/EXIT
 5. Spiel beginnen: Hand zum Senosor hin bewegen
-6. PacMan (der Gelbe Kreis) durch Gesten (rauf, runter, link, rechts) steuern
+6. PacMan (der gelbe Kreis) durch Gesten (rauf, runter, link, rechts) steuern
 
 Viel Spass!
  
-
-
 
 
 
