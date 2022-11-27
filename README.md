@@ -24,7 +24,7 @@ Ablauf um Spiel zu starten:
 3. Grove Gesture Sensor so Ausrichten, das "INT" oben links in der Ecke steht
 4. Spiel laufen lassen: main.py starten => Fenster wird geöffnet mit START/ABOUT/EXIT
 5. Spiel beginnen: Hand zum Senosor hin bewegen
-6. PacMan (der gelbe Kreis) durch Gesten (rauf, runter, link, rechts) steuern
+6. PacMan (der gelbe Kreis) durch Gesten (rauf, runter, links, rechts) steuern
 
 Viel Spass!
  
