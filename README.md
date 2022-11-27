@@ -21,7 +21,7 @@ Ablauf um Spiel zu starten:
   Remotedesktop gespielt werden)
 2. Grove Gesture Sensor an Port 12C-3 anschliessen
 3. Grove Gesture Sensor so Ausrichten, das "INT" oben links in der Ecke steht
-4. Spiel laufen lassen: main.py starten => Fenster wird geöffnet mit START7ABOUT/EXIT
+4. Spiel laufen lassen: main.py starten => Fenster wird geöffnet mit START/ABOUT/EXIT
 5. Spiel beginnen: Hand zum Senosor hin bewegen
 6. PacMan (der Gelbe Kreis) durch Gesten (rauf, runter, link, rechts) steuern
 
