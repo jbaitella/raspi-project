@@ -13,13 +13,13 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load(filename).convert()
         self.image.set_colorkey(Const.BLACK)
         self.rect = self.image.get_rect()
-        self.rect.topleft = (x,y)
+        self.rect.topleft = (x, y)
 
         #Animationsbild von PacMan
         img = pygame.image.load("Pictures/walk.png").convert()
 
         #Animationen mit Bewegungen verbinden
-        self.move_right_animation = Animation(img,32,32)
+        self.move_right_animation = Animation(img, 32, 32)
         self.move_left_animation = Animation(pygame.transform.flip(img, True, False), 32, 32)
         self.move_up_animation = Animation(pygame.transform.rotate(img, 90), 32, 32)
         self.move_down_animation = Animation(pygame.transform.rotate(img, 270), 32, 32)

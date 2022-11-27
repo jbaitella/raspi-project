@@ -7,7 +7,7 @@ import time
 def main():
     pygame.init()
     screen = pygame.display.set_mode((Const.SCREEN_WIDTH, Const.SCREEN_HEIGHT))
-    pygame.display.set_caption("PACMAN")
+    pygame.display.set_caption("PACMAN THE GAME")
     done = False
     clock = pygame.time.Clock()
     game = Game()

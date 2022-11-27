@@ -3,7 +3,6 @@ import tkinter
 from tkinter import messagebox
 import grove_gesture_sensor
 
-
 from Programms.enemies import *
 from Programms.player import Player
 import Programms.constants as Const
@@ -32,9 +31,9 @@ class Game(object):
         for i, row in enumerate(enviroment()):
             for j, item in enumerate(row):
                 if item == 1: 
-                    self.horizontalBlocks.add(Block(j * 32 + 8, i * 32 + 8, Const.BLACK, 16, 16))
+                    self.horizontalBlocks.add(Block (j * 32 + 8, i * 32 + 8, Const.BLACK, 16, 16))
                 elif item == 2:
-                    self.verticalBlocks.add(Block(j * 32 + 8, i * 32 + 8, Const.BLACK, 16, 16))
+                    self.verticalBlocks.add(Block (j * 32 + 8, i * 32 + 8, Const.BLACK, 16, 16))
 
         # Monster kreiren 
         self.enemies = pygame.sprite.Group()
