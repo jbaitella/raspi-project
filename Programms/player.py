@@ -13,7 +13,7 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load(filename).convert()
         self.image.set_colorkey(Const.BLACK)
         self.rect = self.image.get_rect()
-        self.rect.topleft = (x,y)
+        self.rect.topleft = (x, y)
 
         #Animationsbild von PacMan
         img = pygame.image.load("Pictures/walk.png").convert()
