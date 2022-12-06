@@ -84,7 +84,7 @@ class Game(object):
                     elif self.menu.state == 2:
                         return True
 
-            #Bewegugn zu Geste Hinzufügen 
+            #Bewegung zu Geste Hinzufügen 
             elif gest == g.RIGHT:
                 self.player.move_right()
                 print ("Right")
